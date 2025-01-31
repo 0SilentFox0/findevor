@@ -26,7 +26,9 @@ export function Header() {
 		<div className='header'>
 			<div className='container'>
 				<div className='logo'>
-					<img src={headerLogo} alt='headerLogo' className='headerLogo' />
+					<NavLink to='/'>
+						<img src={headerLogo} alt='headerLogo' className='headerLogo' />
+					</NavLink>
 				</div>
 				<div className='menu '>
 					<NavLink className='text' to='/company'>
@@ -40,7 +42,11 @@ export function Header() {
 					<button
 						className='btn'
 						onClick={() =>
-							(window.location.href = 'https://www.findevor.ai/early-access')
+							window.open(
+								'https://www.findevor.ai/early-access',
+								'_blank',
+								'noopener,noreferrer'
+							)
 						}
 					>
 						Schedule a Demo
@@ -92,8 +98,11 @@ export function Header() {
 									<button
 										className='burgerMenu-btn'
 										onClick={() =>
-											(window.location.href =
-												'https://www.findevor.ai/early-access')
+											window.open(
+												'https://www.findevor.ai/early-access',
+												'_blank',
+												'noopener,noreferrer'
+											)
 										}
 									>
 										Schedule a Demo
