@@ -81,19 +81,15 @@ export function Screens() {
 				onUpdate(self) {
 					const progress = self.progress
 
-					if (progress >= 1) {
-						setActiveSubtitle(subtitles.length - 1)
-					} else {
-						const activeIndex = Math.floor(progress * subtitles.length)
-						setActiveSubtitle(activeIndex)
-					}
+					const activeIndex = Math.floor(progress * leftBlocks.length)
+					const subtitleIndex = Math.min(activeIndex, subtitles.length - 1)
+					const subtitleMobIndex = Math.min(
+						activeIndex,
+						subtitlesMob.length - 1
+					)
 
-					if (progress >= 1) {
-						setActiveSubtitle(subtitlesMob.length - 1)
-					} else {
-						const activeIndex = Math.floor(progress * subtitlesMob.length)
-						setActiveSubtitle(activeIndex)
-					}
+					setActiveSubtitle(subtitleIndex)
+					setActiveSubtitle(subtitleMobIndex)
 
 					const activeStars = progress * stars.length
 
@@ -239,26 +235,13 @@ export function Screens() {
 								<div className='leftBlocksText' ref={leftBlocksRef}>
 									<div className='firstScreen-texts screenLeftText'>
 										<div className='firstScreen-titles'>
-											<div className='firstScreen-title desktop-title-first'>
-												Portfolio
-											</div>
-											<div className='firstScreen-title2 desktop-title-first'>
-												Intelligence{' '}
-											</div>
-											<div className='firstScreen-title-mob'>Strategic </div>
-											<div className='firstScreen-title2-mob'>
-												Analytics Manager
-											</div>
+											<div className='firstScreen-title '>Portfolio</div>
+											<div className='firstScreen-title2'>Intelligence</div>
 										</div>
 										<div className='firstScreen-text'>
 											Your AI Agent for Strategic Analytics Management works
 											autonomously to uncover missed opportunities to grow your
 											book of business within risk appetite.
-										</div>
-
-										<div className='firstScreen-text-mob'>
-											SAM analyzes premiums, losses, and profits, identifies
-											growth opportunities, and automates tasks.
 										</div>
 									</div>
 

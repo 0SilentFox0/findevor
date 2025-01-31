@@ -29,11 +29,41 @@ export function Quote() {
 		},
 	]
 
+	const containerRef = useRef(null)
+	const [index, setIndex] = useState(0)
+	const [direction, setDirection] = useState(1)
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setIndex(prevIndex => {
+				let newIndex = prevIndex + direction
+				if (newIndex >= quotes.length - 1 || newIndex <= 0) {
+					setDirection(-direction)
+				}
+				return newIndex
+			})
+		}, 15000)
+		return () => clearInterval(interval)
+	}, [direction])
+
+	useEffect(() => {
+		if (containerRef.current) {
+			const scrollWidth = containerRef.current.scrollWidth / quotes.length
+			containerRef.current.scrollTo({
+				left: index * scrollWidth,
+				behavior: 'smooth',
+			})
+		}
+	}, [index])
 	return (
 		<div className='quotes-scroll'>
 			<div className='quotes'>
 				<div className='quote-container'>
-					<div className='securQuote-wrapcont'>
+					<div
+						className='securQuote-wrapcont'
+						ref={containerRef}
+						style={{ display: 'flex', overflow: 'hidden' }}
+					>
 						<div className='securQuote-star-top'>
 							<img
 								src={quoteStar}
@@ -41,8 +71,16 @@ export function Quote() {
 								className='quote-starImgLeft'
 							/>
 						</div>
-						{quotes.map((quote, index) => (
-							<div key={quote.id} className='securQuote'>
+						{quotes.map((quote, i) => (
+							<div
+								key={quote.id}
+								className='securQuote'
+								style={{
+									minWidth: '100%',
+									opacity: i === index ? 1 : 0,
+									transition: 'opacity 0.5s ease-in-out',
+								}}
+							>
 								<div className='quote-wrapper-container'>
 									<div className='quote-wrapper-top'>
 										<img
